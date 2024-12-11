@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react"; // Import useState
-import { supabase } from "../lib/supabaseClient"; // Ensure correct import
 
 const LoginPage = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState(""); // Email state
