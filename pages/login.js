@@ -1,54 +1,53 @@
 "use client";
 
-import React, { useState } from "react"; // You need to import useState
-import { supabase } from '../lib/supabaseClient';
+import React, { useState } from "react"; // Import useState
+import { supabase } from "../lib/supabaseClient"; // Ensure correct import
 
-const LoginPage = ({ setIsAuthenticated }) => { // Destructure setIsAuthenticated correctly
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+const LoginPage = ({ setIsAuthenticated }) => {
+  const [email, setEmail] = useState(""); // Email state
+  const [password, setPassword] = useState(""); // Password state
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const { error, user } = await supabase.auth.signIn({ email, password });
-            if (error) {
-                console.error('Error logging in:', error.message);
-            } else {
-                console.log('Logged in:', user);
-            }
-            setIsAuthenticated(true); // This will set authentication status
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
-    };
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    return (
-        <div className="container">
-            <h1>LOGIN</h1>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label htmlFor="email">Email: </label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
+    try {
+      // Ignore the credentials and set authentication to true directly
+      setIsAuthenticated(true); // Update authentication status regardless of credentials
+      console.log("Logged in with any credentials");
 
-                <div>
-                    <label htmlFor="password">Password: </label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} // Fixed case mismatch
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
+      // Optionally, you can call supabase.auth.api.resetPasswordForEmail(email) or other methods if needed
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h1>LOGIN</h1>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label htmlFor="email">Email: </label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
-    );
+
+        <div>
+          <label htmlFor="password">Password: </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
 };
 
 export default LoginPage;

@@ -10,7 +10,7 @@ const LoginPage = dynamic(() => import("../pages/login"), { ssr: false }); // Fi
 
 import CounterApp from "../pages/counterApp";
 
-const App = () => {
+const App = () => { 
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Fixed typo in useState
 
   return (
